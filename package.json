@@ -2,9 +2,10 @@
   "name": "mindbend-ecommerce",
   "version": "1.0.0",
   "description": "MindBend E-commerce App",
-  "main": "server/server.js",
+  "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^6.3.0"
   },
   "scripts": {
     "start": "node server.js"
