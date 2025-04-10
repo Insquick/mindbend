@@ -11,14 +11,14 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB connected"))
-.catch(err => console.error("MongoDB connection error:", err));
+}).then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use('/api/products', require('./products'));  // Pointing to the products.js file in the root
-app.use('/api/payment', require('./payment'));    // Pointing to the payment.js file in the root
+app.use('/api/products', require('./products'));
+app.use('/api/payment', require('./payment'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
