@@ -15,10 +15,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   .catch(err => console.error("MongoDB connection error:", err));
 
 // Routes
-app.use('/api/products', require('./products'));
-app.use('/api/payment', require('./payment'));
+app.use('/api/products', require('./products')); // Use the products router
+app.use('/api/payment', require('./payment')); // Assuming payment is handled similarly
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 
