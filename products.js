@@ -1,7 +1,9 @@
-const Product = require('./Product'); // Adjust based on the correct file location if necessary
+const express = require('express');
+const router = express.Router(); // Use the router, not app directly
+const Product = require('./Product'); // Assuming you have a Product model
 
 // Example route logic
-app.get('/products', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
@@ -9,3 +11,5 @@ app.get('/products', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+module.exports = router; // Export the router
