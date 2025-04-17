@@ -622,7 +622,6 @@
             box-shadow: 0 8px 25px rgba(106, 13, 173, 0.6);
         }
         
-        /* Larger cart count bubble only */
         .cart-count {
             position: absolute;
             top: -12px;
@@ -1021,6 +1020,43 @@
             font-size: 0.95rem;
         }
         
+        /* Auth section styles */
+        #auth-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
+        
+        #auth-section span {
+            font-size: 0.9rem;
+        }
+        
+        /* Loading and error states */
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #ff6b6b;
+        }
+        
+        .error button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
         /* Media Queries */
         @media (max-width: 900px) {
             .nav-links {
@@ -1125,10 +1161,6 @@
                 font-size: 1.8rem;
             }
             
-            .hero p {
-                font-size: 1rem;
-            }
-            
             .series-grid, .products-grid {
                 grid-template-columns: 1fr;
             }
@@ -1206,12 +1238,12 @@
                         <li><a href="#" id="about-link">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    <div id="auth-section"></div>
                 </div>
             </nav>
         </div>
     </header>
     
-    <!-- About Modal -->
     <div class="about-modal" id="about-modal">
         <div class="about-content">
             <button class="close-about" id="close-about">&times;</button>
@@ -1309,9 +1341,7 @@
                 <button class="carousel-btn next-btn" id="next-btn">→</button>
             </div>
             
-            <div class="carousel-dots" id="carousel-dots">
-                <!-- Dots will be added dynamically -->
-            </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
         </div>
     </section>
     
@@ -1321,29 +1351,7 @@
             <p class="section-subtitle">Explore our carefully crafted puzzle series, each designed to challenge different aspects of spatial reasoning and problem-solving.</p>
             
             <div class="series-grid">
-                <div class="series-card" data-series="elysium">
-                    <div class="series-image">Elysium Series</div>
-                    <div class="series-info">
-                        <h3 class="series-title">Elysium Series</h3>
-                        <p>Classic spatial puzzles with elegant designs</p>
-                    </div>
-                </div>
-                
-                <div class="series-card" data-series="quantum">
-                    <div class="series-image">Quantum Series</div>
-                    <div class="series-info">
-                        <h3 class="series-title">Quantum Series</h3>
-                        <p>Modern puzzles with dynamic elements</p>
-                    </div>
-                </div>
-                
-                <div class="series-card" data-series="fractal">
-                    <div class="series-image">Fractal Series</div>
-                    <div class="series-info">
-                        <h3 class="series-title">Fractal Series</h3>
-                        <p>Infinite patterns and recursive designs</p>
-                    </div>
-                </div>
+                <!-- Series will be loaded dynamically -->
             </div>
         </div>
     </section>
@@ -1352,12 +1360,10 @@
         <div class="container">
             <div class="products-header">
                 <a href="#" class="back-to-series" id="back-to-series">&larr; Back to Series</a>
-                <h2 class="section-title" id="series-products-title">Elysium Series</h2>
+                <h2 class="section-title" id="series-products-title">Series Products</h2>
             </div>
             
-            <div class="products-grid" id="products-grid">
-                <!-- Products will be loaded here dynamically -->
-            </div>
+            <div class="products-grid" id="products-grid"></div>
         </div>
     </section>
     
@@ -1379,13 +1385,11 @@
         </div>
     </footer>
     
-    <!-- Floating Cart Button -->
     <div class="floating-cart" id="floating-cart">
         Your Cart 🛒
         <span class="cart-count" id="cart-count">0</span>
     </div>
     
-    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
         <div class="cart-header">
             <h3 class="cart-title">Your Cart</h3>
@@ -1418,8 +1422,24 @@
             <div class="checkout-form" id="checkout-form" style="display: none;">
                 <h3>Shipping Information</h3>
                 <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" required>
+                </div>
+                <div class="form-group">
                     <label for="country">Country</label>
-                    <select id="country" class="form-control">
+                    <select id="country" class="form-control" required>
                         <option value="">Select Country</option>
                         <option value="US">United States</option>
                         <option value="CA">Canada</option>
@@ -1429,10 +1449,13 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="zipcode">Zip/Postal Code</label>
-                    <input type="text" id="zipcode" class="form-control">
+                    <input type="text" id="zipcode" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control">
                 </div>
                 
                 <button id="checkout-btn" class="checkout-btn">Secure Checkout</button>
@@ -1447,93 +1470,20 @@
             </div>
         </div>
     </div>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Product data
-        const products = {
-            elysium: [
-                {
-                    id: 'e1',
-                    name: 'Elysium Junior',
-                    price: 19.99,
-                    difficulty: 'easy',
-                    description: 'Perfect introduction to spatial puzzles for kids ages 8+. Bright colors and intuitive design make learning fun.',
-                    image: 'Elysium Junior'
-                },
-                {
-                    id: 'e2',
-                    name: 'Elysium Standard',
-                    price: 24.99,
-                    difficulty: 'medium',
-                    description: 'Our most popular puzzle for teens and adults. Balanced challenge that\'s satisfying to solve.',
-                    image: 'Elysium Standard'
-                },
-                {
-                    id: 'e3',
-                    name: 'Elysium Master',
-                    price: 29.99,
-                    difficulty: 'hard',
-                    description: 'For advanced solvers who crave a real challenge. Will test even experienced puzzle enthusiasts.',
-                    image: 'Elysium Master'
-                }
-            ],
-            quantum: [
-                {
-                    id: 'q1',
-                    name: 'Quantum Spark',
-                    price: 22.99,
-                    difficulty: 'easy',
-                    description: 'Introduces quantum concepts through simple, engaging spatial challenges for young minds.',
-                    image: 'Quantum Spark'
-                },
-                {
-                    id: 'q2',
-                    name: 'Quantum Flux',
-                    price: 27.99,
-                    difficulty: 'medium',
-                    description: 'Dynamic puzzle that changes as you solve it, offering multiple solution paths.',
-                    image: 'Quantum Flux'
-                },
-                {
-                    id: 'q3',
-                    name: 'Quantum Singularity',
-                    price: 32.99,
-                    difficulty: 'hard',
-                    description: 'Our most complex quantum puzzle with multiple interacting components that require precise alignment.',
-                    image: 'Quantum Singularity'
-                }
-            ],
-            fractal: [
-                {
-                    id: 'f1',
-                    name: 'Fractal Seed',
-                    price: 21.99,
-                    difficulty: 'easy',
-                    description: 'Simple fractal patterns introduce children to recursive thinking and geometric beauty.',
-                    image: 'Fractal Seed'
-                },
-                {
-                    id: 'f2',
-                    name: 'Fractal Bloom',
-                    price: 26.99,
-                    difficulty: 'medium',
-                    description: 'Intermediate fractal puzzle with multiple layers that reveal beautiful patterns when solved.',
-                    image: 'Fractal Bloom'
-                },
-                {
-                    id: 'f3',
-                    name: 'Fractal Mandala',
-                    price: 31.99,
-                    difficulty: 'hard',
-                    description: 'Complex fractal design with intricate details that challenge even the most patient solvers.',
-                    image: 'Fractal Mandala'
-                }
-            ]
-        };
-        
-        // Cart functionality
+        // Initialize Supabase
+        const supabaseUrl = 'https://ojdsrocckaxjasdwikfi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZHNyb2Nja2F4amFzZHdpa2ZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQzNzc3ODYsImV4cCI6MjA1OTk1Mzc4Nn0.UcIFolT6fE-FFvwNAl1v5-tV3Kk86l7O2U_598h1fws';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Global variables
+        let products = {};
         let cart = [];
-        
+        let currentCarouselIndex = 0;
+        let carouselInterval;
+
         // DOM elements
         const floatingCartBtn = document.getElementById('floating-cart');
         const cartModal = document.getElementById('cart-modal');
@@ -1549,14 +1499,10 @@
         const zipcodeInput = document.getElementById('zipcode');
         const checkoutBtn = document.getElementById('checkout-btn');
         const shopNowBtn = document.getElementById('shop-now-btn');
-        
-        // About modal elements
         const aboutModal = document.getElementById('about-modal');
         const aboutLink = document.getElementById('about-link');
         const footerAboutLink = document.getElementById('footer-about-link');
         const closeAboutBtn = document.getElementById('close-about');
-        
-        // Series and products
         const seriesCards = document.querySelectorAll('.series-card');
         const seriesSection = document.querySelector('.series-section');
         const productsSection = document.querySelector('.products-section');
@@ -1564,18 +1510,13 @@
         const seriesTitle = document.getElementById('series-products-title');
         const backToSeries = document.getElementById('back-to-series');
         const exploreSeriesBtn = document.getElementById('explore-series-btn');
-        
-        // Carousel elements
         const benefitsTrack = document.getElementById('benefits-track');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const dotsContainer = document.getElementById('carousel-dots');
         const benefitCards = document.querySelectorAll('.benefit-card');
-        let currentIndex = 0;
-        let cardWidth = 0;
-        let carouselInterval;
-        const CAROUSEL_INTERVAL = 5000; // 5 seconds
-        
+        const authSection = document.getElementById('auth-section');
+
         // Shipping rates
         const shippingRates = {
             US: { base: 5.99, perItem: 1.50 },
@@ -1585,122 +1526,125 @@
             EU: { base: 7.99, perItem: 2.00 },
             other: { base: 14.99, perItem: 3.50 }
         };
-        
-        // Initialize the carousel
-        function initCarousel() {
-            if (benefitCards.length === 0) return;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            initCarousel();
+            setupEventListeners();
             
-            // Calculate card width including margin
-            const firstCard = benefitCards[0];
-            const style = window.getComputedStyle(firstCard);
-            cardWidth = firstCard.offsetWidth + 
-                        parseInt(style.marginLeft) + 
-                        parseInt(style.marginRight);
-            
-            // Create dots
-            dotsContainer.innerHTML = '';
-            benefitCards.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(index));
-                dotsContainer.appendChild(dot);
+            // Check auth state
+            supabase.auth.onAuthStateChange((event, session) => {
+                console.log('Auth state changed:', event, session);
+                updateAuthUI();
             });
+        });
+
+        // Load products from Supabase
+        async function loadProducts() {
+            const seriesGrid = document.querySelector('.series-grid');
+            seriesGrid.innerHTML = '<div class="loading">Loading puzzles...</div>';
             
-            // Start the carousel
-            startCarousel();
-            
-            // Update on window resize
-            window.addEventListener('resize', () => {
-                const newWidth = firstCard.offsetWidth + 
-                               parseInt(style.marginLeft) + 
-                               parseInt(style.marginRight);
-                if (newWidth !== cardWidth) {
-                    cardWidth = newWidth;
-                    updateCarousel();
+            try {
+                // Fetch all series
+                const { data: series, error: seriesError } = await supabase
+                    .from('series')
+                    .select('*');
+                
+                if (seriesError) throw seriesError;
+                
+                // Fetch products for each series
+                for (const seriesItem of series) {
+                    const { data: seriesProducts, error: productsError } = await supabase
+                        .from('products')
+                        .select('*')
+                        .eq('series_id', seriesItem.id);
+                    
+                    if (productsError) throw productsError;
+                    
+                    products[seriesItem.id] = seriesProducts.map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        difficulty: p.difficulty,
+                        description: p.description,
+                        image: p.image_url || p.name
+                    }));
                 }
-            });
+                
+                // Render series
+                renderSeries(series);
+                
+            } catch (error) {
+                console.error('Error loading products:', error);
+                seriesGrid.innerHTML = `
+                    <div class="error">
+                        Failed to load puzzles. Please refresh the page.
+                        <button onclick="location.reload()">Reload</button>
+                    </div>
+                `;
+            }
         }
-        
-        function updateCarousel() {
-            const offset = -currentIndex * cardWidth;
-            benefitsTrack.style.transform = `translateX(${offset}px)`;
+
+        function renderSeries(series) {
+            const seriesGrid = document.querySelector('.series-grid');
+            seriesGrid.innerHTML = '';
             
-            // Update dots
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
+            series.forEach(seriesItem => {
+                const seriesCard = document.createElement('div');
+                seriesCard.className = 'series-card';
+                seriesCard.setAttribute('data-series', seriesItem.id);
+                seriesCard.innerHTML = `
+                    <div class="series-image">${seriesItem.name}</div>
+                    <div class="series-info">
+                        <h3 class="series-title">${seriesItem.name}</h3>
+                        <p>${seriesItem.description || 'Premium spatial puzzles collection'}</p>
+                    </div>
+                `;
+                seriesGrid.appendChild(seriesCard);
+                
+                // Add click event
+                seriesCard.addEventListener('click', () => showProducts(seriesItem.id));
             });
         }
-        
-        function goToSlide(index) {
-            currentIndex = (index + benefitCards.length) % benefitCards.length;
-            updateCarousel();
-            resetCarouselInterval();
-        }
-        
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % benefitCards.length;
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + benefitCards.length) % benefitCards.length;
-            updateCarousel();
-        }
-        
-        function startCarousel() {
-            if (carouselInterval) clearInterval(carouselInterval);
-            carouselInterval = setInterval(nextSlide, CAROUSEL_INTERVAL);
-        }
-        
-        function resetCarouselInterval() {
-            clearInterval(carouselInterval);
-            startCarousel();
-        }
-        
-        function openCart() {
-            cartModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            updateCart();
-        }
-        
-        function closeCart() {
-            cartModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        function showProducts(series) {
+
+        function showProducts(seriesId) {
             seriesSection.style.display = 'none';
             productsSection.style.display = 'block';
             
             // Update title
-            seriesTitle.textContent = `${series.charAt(0).toUpperCase() + series.slice(1)} Series`;
+            const seriesName = document.querySelector(`.series-card[data-series="${seriesId}"] .series-title`).textContent;
+            seriesTitle.textContent = seriesName;
             
             // Load products
             productsGrid.innerHTML = '';
-            products[series].forEach(product => {
-                const difficultyClass = `difficulty-${product.difficulty}`;
-                const productEl = document.createElement('div');
-                productEl.className = 'product-card';
-                productEl.innerHTML = `
-                    <div class="product-image">${product.image}</div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <span class="difficulty-badge ${difficultyClass}">
-                            ${product.difficulty.charAt(0).toUpperCase() + product.difficulty.slice(1)}
-                        </span>
-                        <div class="product-price">$${product.price.toFixed(2)}</div>
-                        <p class="product-description">${product.description}</p>
-                        <button class="add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add to cart</button>
-                    </div>
-                `;
-                productsGrid.appendChild(productEl);
-            });
-            
-            // Add event listeners to new buttons
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', addToCart);
-            });
+            if (products[seriesId] && products[seriesId].length > 0) {
+                products[seriesId].forEach(product => {
+                    const difficultyClass = `difficulty-${product.difficulty}`;
+                    const productEl = document.createElement('div');
+                    productEl.className = 'product-card';
+                    productEl.innerHTML = `
+                        <div class="product-image">${product.image}</div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <span class="difficulty-badge ${difficultyClass}">
+                                ${product.difficulty.charAt(0).toUpperCase() + product.difficulty.slice(1)}
+                            </span>
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <p class="product-description">${product.description}</p>
+                            <button class="add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add to cart</button>
+                        </div>
+                    `;
+                    productsGrid.appendChild(productEl);
+                });
+                
+                // Add event listeners to new buttons
+                document.querySelectorAll('.add-to-cart').forEach(btn => {
+                    btn.addEventListener('click', addToCart);
+                });
+            } else {
+                productsGrid.innerHTML = '<div class="error">No products found in this series.</div>';
+            }
             
             // Scroll to products
             window.scrollTo({
@@ -1708,25 +1652,23 @@
                 behavior: 'smooth'
             });
         }
-        
+
         function showSeries() {
             productsSection.style.display = 'none';
             seriesSection.style.display = 'block';
-            
-            // Scroll to series
             window.scrollTo({
                 top: seriesSection.offsetTop - 20,
                 behavior: 'smooth'
             });
         }
-        
+
+        // Cart functions
         function addToCart(e) {
             const button = e.target;
             const id = button.getAttribute('data-id');
             const name = button.getAttribute('data-name');
             const price = parseFloat(button.getAttribute('data-price'));
             
-            // Check if item already in cart
             const existingItem = cart.find(item => item.id === id);
             
             if (existingItem) {
@@ -1750,7 +1692,7 @@
                 button.style.backgroundColor = '';
             }, 1000);
         }
-        
+
         function updateCart() {
             // Update cart count
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -1766,9 +1708,6 @@
                 `;
                 cartSummary.style.display = 'none';
                 checkoutForm.style.display = 'none';
-                
-                // Re-add event listener to shop now button
-                document.getElementById('shop-now-btn').addEventListener('click', closeCart);
             } else {
                 cartItemsEl.innerHTML = '';
                 cart.forEach(item => {
@@ -1813,7 +1752,7 @@
             
             updateTotals();
         }
-        
+
         function decreaseQuantity(e) {
             const id = e.target.getAttribute('data-id');
             const item = cart.find(item => item.id === id);
@@ -1826,20 +1765,20 @@
             
             updateCart();
         }
-        
+
         function increaseQuantity(e) {
             const id = e.target.getAttribute('data-id');
             const item = cart.find(item => item.id === id);
             item.quantity++;
             updateCart();
         }
-        
+
         function removeItem(e) {
             const id = e.target.getAttribute('data-id');
             cart = cart.filter(item => item.id !== id);
             updateCart();
         }
-        
+
         function updateTotals() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
@@ -1852,7 +1791,12 @@
                 totalEl.textContent = `$${subtotal.toFixed(2)}`;
             }
         }
-        
+
+        function calculateShipping(country, itemCount) {
+            const rate = shippingRates[country] || shippingRates.other;
+            return rate.base + (rate.perItem * itemCount);
+        }
+
         function updateShipping() {
             const country = countrySelect.value;
             const zipcode = zipcodeInput.value.trim();
@@ -1870,7 +1814,7 @@
                 return;
             }
             
-            if (country === 'CA' && (!zipcode || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(zipcode))) {
+            if (country === 'CA' && (!zipcode || !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(zipcode))) {
                 shippingEl.textContent = 'Enter valid postal code';
                 return;
             }
@@ -1881,9 +1825,8 @@
             }
             
             // Calculate shipping
-            const rate = shippingRates[country] || shippingRates.other;
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const shippingCost = rate.base + (rate.perItem * itemCount);
+            const shippingCost = calculateShipping(country, itemCount);
             
             shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
             
@@ -1891,65 +1834,271 @@
             const total = subtotal + shippingCost;
             totalEl.textContent = `$${total.toFixed(2)}`;
         }
-        
-        function processCheckout() {
+
+        async function processCheckout() {
             if (cart.length === 0) {
                 alert('Your cart is empty. Please add some puzzles before checking out.');
                 return;
             }
-            
+
             const country = countrySelect.value;
             const zipcode = zipcodeInput.value.trim();
             
+            // Validate shipping info
+            if (!validateShippingInfo(country, zipcode)) {
+                return;
+            }
+
+            const shippingInfo = {
+                name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                country,
+                zipcode,
+                phone: document.getElementById('phone').value || 'Not provided'
+            };
+
+            try {
+                // Create order in database
+                const user = supabase.auth.user();
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const shipping = calculateShipping(shippingInfo.country, cart.length);
+                
+                const { data: order, error: orderError } = await supabase
+                    .from('orders')
+                    .insert([{
+                        user_id: user?.id || null,
+                        total_amount: subtotal + shipping,
+                        shipping_amount: shipping,
+                        shipping_address: shippingInfo
+                    }])
+                    .select()
+                    .single();
+                
+                if (orderError) throw orderError;
+                
+                // Add order items
+                const orderItems = cart.map(item => ({
+                    order_id: order.id,
+                    product_id: item.id,
+                    quantity: item.quantity,
+                    price_at_purchase: item.price
+                }));
+                
+                const { error: itemsError } = await supabase
+                    .from('order_items')
+                    .insert(orderItems);
+                
+                if (itemsError) throw itemsError;
+                
+                // In a production app, you would integrate with Stripe here
+                // For this demo, we'll show a success message
+                alert(`Order #${order.id} created successfully!\nTotal: $${(subtotal + shipping).toFixed(2)}`);
+                
+                // Clear cart
+                cart = [];
+                updateCart();
+                closeCart();
+                
+                // Reset form
+                countrySelect.value = '';
+                zipcodeInput.value = '';
+                
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert(`Checkout failed: ${error.message}`);
+            }
+        }
+
+        function validateShippingInfo(country, zipcode) {
             if (!country) {
                 alert('Please select your country.');
-                return;
+                return false;
             }
             
-            // Validate zipcode based on country
-            if (country === 'US' && (!zipcode || !/^\d{5}(-\d{4})?$/.test(zipcode))) {
-                alert('Please enter a valid US ZIP code.');
-                return;
+            const zipPatterns = {
+                US: /^\d{5}(-\d{4})?$/,
+                CA: /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
+                UK: /^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][A-Z]{2}$/i
+            };
+            
+            if (zipPatterns[country] && !zipPatterns[country].test(zipcode)) {
+                alert(`Please enter a valid ${country} postal code.`);
+                return false;
             }
             
-            if (country === 'CA' && (!zipcode || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(zipcode))) {
-                alert('Please enter a valid Canadian postal code (format: A1A 1A1).');
-                return;
-            }
-            
-            if (country === 'UK' && (!zipcode || !/^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][A-Z]{2}$/i.test(zipcode))) {
-                alert('Please enter a valid UK postcode.');
-                return;
-            }
-            
-            // In a real app, you would process payment here
-            // For this demo, we'll just show a confirmation
-            alert('Order placed successfully! Thank you for your purchase.');
-            
-            // Clear cart
-            cart = [];
-            updateCart();
-            closeCart();
-            
-            // Reset form
-            countrySelect.value = '';
-            zipcodeInput.value = '';
+            return true;
         }
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize carousel
-            initCarousel();
+
+        // Authentication functions
+        async function signUp(email, password) {
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: prompt("Please enter your full name") || ""
+                    }
+                }
+            });
             
-            // Add all event listeners
-            setupEventListeners();
-        });
-        
+            if (error) {
+                alert(`Sign up error: ${error.message}`);
+                throw error;
+            }
+            return data;
+        }
+
+        async function signIn(email, password) {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+            
+            if (error) {
+                alert(`Sign in error: ${error.message}`);
+                throw error;
+            }
+            return data;
+        }
+
+        async function signOut() {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                alert(`Sign out error: ${error.message}`);
+                throw error;
+            }
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            const user = supabase.auth.user();
+            
+            if (user) {
+                authSection.innerHTML = `
+                    <span>Welcome, ${user.email}</span>
+                    <button id="logout-btn" class="btn">Logout</button>
+                `;
+                document.getElementById('logout-btn').addEventListener('click', signOut);
+            } else {
+                authSection.innerHTML = `
+                    <button id="login-btn" class="btn">Login</button>
+                    <button id="signup-btn" class="btn">Sign Up</button>
+                `;
+                document.getElementById('login-btn').addEventListener('click', () => {
+                    const email = prompt("Enter your email:");
+                    const password = prompt("Enter your password:");
+                    if (email && password) signIn(email, password);
+                });
+                document.getElementById('signup-btn').addEventListener('click', () => {
+                    const email = prompt("Enter your email:");
+                    const password = prompt("Enter your password:");
+                    if (email && password) signUp(email, password);
+                });
+            }
+        }
+
+        // Carousel functions
+        function initCarousel() {
+            if (benefitCards.length === 0) return;
+            
+            const firstCard = benefitCards[0];
+            const style = window.getComputedStyle(firstCard);
+            const cardWidth = firstCard.offsetWidth + 
+                             parseInt(style.marginLeft) + 
+                             parseInt(style.marginRight);
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            benefitCards.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            startCarousel();
+            
+            window.addEventListener('resize', () => {
+                const newWidth = firstCard.offsetWidth + 
+                               parseInt(style.marginLeft) + 
+                               parseInt(style.marginRight);
+                if (newWidth !== cardWidth) {
+                    updateCarousel();
+                }
+            });
+        }
+
+        function updateCarousel() {
+            const firstCard = benefitCards[0];
+            const style = window.getComputedStyle(firstCard);
+            const cardWidth = firstCard.offsetWidth + 
+                             parseInt(style.marginLeft) + 
+                             parseInt(style.marginRight);
+            
+            const offset = -currentCarouselIndex * cardWidth;
+            benefitsTrack.style.transform = `translateX(${offset}px)`;
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentCarouselIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentCarouselIndex = (index + benefitCards.length) % benefitCards.length;
+            updateCarousel();
+            resetCarouselInterval();
+        }
+
+        function nextSlide() {
+            currentCarouselIndex = (currentCarouselIndex + 1) % benefitCards.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentCarouselIndex = (currentCarouselIndex - 1 + benefitCards.length) % benefitCards.length;
+            updateCarousel();
+        }
+
+        function startCarousel() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetCarouselInterval() {
+            clearInterval(carouselInterval);
+            startCarousel();
+        }
+
+        // Modal functions
+        function openCart() {
+            cartModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            cartModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openAbout() {
+            aboutModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAbout() {
+            aboutModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
         function setupEventListeners() {
             // Cart events
             floatingCartBtn.addEventListener('click', openCart);
             closeCartBtn.addEventListener('click', closeCart);
-            shopNowBtn.addEventListener('click', closeCart);
+            shopNowBtn?.addEventListener('click', closeCart);
             checkoutBtn.addEventListener('click', processCheckout);
             countrySelect.addEventListener('change', updateShipping);
             zipcodeInput.addEventListener('input', updateShipping);
@@ -1957,30 +2106,17 @@
             // About modal events
             aboutLink.addEventListener('click', (e) => {
                 e.preventDefault();
-                aboutModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                openAbout();
             });
             
             footerAboutLink.addEventListener('click', (e) => {
                 e.preventDefault();
-                aboutModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                openAbout();
             });
             
-            closeAboutBtn.addEventListener('click', () => {
-                aboutModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
+            closeAboutBtn.addEventListener('click', closeAbout);
             
             // Series navigation
-            seriesCards.forEach(card => {
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const series = card.getAttribute('data-series');
-                    showProducts(series);
-                });
-            });
-            
             backToSeries.addEventListener('click', (e) => {
                 e.preventDefault();
                 showSeries();
@@ -2005,8 +2141,7 @@
             // Close modals when clicking outside
             window.addEventListener('click', (e) => {
                 if (e.target === aboutModal) {
-                    aboutModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
+                    closeAbout();
                 }
                 if (e.target === cartModal) {
                     closeCart();
