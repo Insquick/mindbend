@@ -1020,7 +1020,6 @@
             font-size: 0.95rem;
         }
         
-        /* Auth section styles */
         #auth-section {
             display: flex;
             align-items: center;
@@ -1032,7 +1031,6 @@
             font-size: 0.9rem;
         }
         
-        /* Loading and error states */
         .loading {
             grid-column: 1 / -1;
             text-align: center;
@@ -1057,7 +1055,6 @@
             cursor: pointer;
         }
         
-        /* Media Queries */
         @media (max-width: 900px) {
             .nav-links {
                 display: none;
@@ -1473,9 +1470,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Initialize Supabase
-        const supabaseUrl = 'https://ojdsrocckaxjasdwikfi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZHNyb2Nja2F4amFzZHdpa2ZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQzNzc3ODYsImV4cCI6MjA1OTk1Mzc4Nn0.UcIFolT6fE-FFvwNAl1v5-tV3Kk86l7O2U_598h1fws';
+        // Secure Supabase initialization
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://your-fallback-url.supabase.co';
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || 'your-fallback-key';
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
         // Global variables
